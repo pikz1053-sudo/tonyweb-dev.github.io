@@ -1,55 +1,1090 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8">
-    <title>Tony - Développeur Web</title>
-    <style>
-      body {
-        background-color: black;
-        font-family: Arial;
-      }
-      div {
-        background-color: white;
-        width: 400px;
-        margin: 100px auto;
-        border-radius: 10px;
-        padding: 30px;
-      }
-      h1 {
-        color: orange;
-        text-align: center;
-      }
-      p {
-        color: black;
-        text-align: center;
-      }
-      a {
-        color: orange;
-        display: block;
-        text-align: center;
-      }
-      button {
-        background-color: orange;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        display: block;
-        margin: 10px auto;
-      }
-    </style>
-  </head>
-  <body>
-    <div>
-      <h1>Tony</h1>
-      <p>Développeur web | France</p>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Web Design</li>
-      </ul>
-      <button>Contactez moi</button>
-      <a href="https://www.fiverr.com/tonyweb_dev">Mon Fiverr</a>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XENOVRA — Building The Future of Gaming</title>
+<meta name="description" content="XENOVRA - La plateforme compétitive #1 pour Fortnite & Clash Royale. Matchs, tournois, XCoins, leaderboard.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#010205;--deep:#03060f;--card:#070d1c;--card2:#0a1225;
+  --b1:rgba(30,60,120,.25);--b2:rgba(80,40,160,.2);
+  --blue:#3b82f6;--blue2:#60a5fa;--blue3:#93c5fd;
+  --violet:#7c3aed;--violet2:#8b5cf6;--violet3:#a78bfa;
+  --cyan:#06b6d4;--cyan2:#22d3ee;
+  --green:#10b981;--gold:#f59e0b;--red:#ef4444;
+  --text:#e2e8f0;--muted:#4b5563;--muted2:#6b7280;
+  --glow-b:0 0 30px rgba(59,130,246,.4),0 0 80px rgba(59,130,246,.15);
+  --glow-v:0 0 30px rgba(124,58,237,.4),0 0 80px rgba(124,58,237,.15);
+  --glow-c:0 0 20px rgba(6,182,212,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--void);color:var(--text);font-family:'Exo 2',sans-serif;overflow-x:hidden;cursor:none}
+::selection{background:rgba(124,58,237,.4)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--deep)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--violet));border-radius:3px}
+
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:12px;height:12px;background:var(--cyan2);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(6,182,212,.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform .1s,width .3s,height .3s,opacity .3s}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .8s,visibility .8s}
+#loader.hidden{opacity:0;visibility:hidden}
+.loader-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.loader-x{width:80px;height:80px;animation:spinGlow 2s linear infinite}
+@keyframes spinGlow{0%{filter:drop-shadow(0 0 10px var(--blue))}50%{filter:drop-shadow(0 0 30px var(--violet))}100%{filter:drop-shadow(0 0 10px var(--blue))}}
+.loader-name{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;letter-spacing:8px;background:linear-gradient(90deg,var(--blue2),var(--violet3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.loader-sub{font-size:.7rem;letter-spacing:5px;color:var(--muted2);text-transform:uppercase;font-family:'Share Tech Mono',monospace}
+.loader-bar{width:240px;height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.loader-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--violet),var(--cyan2));animation:fill 2s ease forwards;border-radius:2px}
+@keyframes fill{0%{width:0}100%{width:100%}}
+.loader-code{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--cyan);animation:blink2 .8s infinite}
+@keyframes blink2{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* CANVAS */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* NAVBAR */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 4%;background:rgba(1,2,5,.6);backdrop-filter:blur(24px);border-bottom:1px solid rgba(59,130,246,.1);transition:all .3s}
+nav.scrolled{background:rgba(1,2,5,.92);box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer}
+.nav-logo svg{width:36px;height:36px;filter:drop-shadow(0 0 8px var(--blue))}
+.nav-logo-text{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--blue2),var(--violet3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links a{padding:8px 14px;border-radius:8px;color:var(--muted2);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;transition:all .3s;display:flex;align-items:center;gap:6px;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2)}
+.nav-links a span{font-size:.9rem}
+.nav-right{display:flex;align-items:center;gap:10px}
+.xcoins-display{display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-family:'Share Tech Mono',monospace;font-size:.85rem;color:var(--gold)}
+.btn-login{padding:8px 18px;border:1px solid rgba(59,130,246,.3);border-radius:8px;background:transparent;color:var(--blue2);font-family:'Exo 2',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.btn-login:hover{background:rgba(59,130,246,.1);box-shadow:var(--glow-b)}
+.btn-register{padding:8px 18px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;font-family:'Exo 2',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.btn-register:hover{transform:translateY(-2px);box-shadow:var(--glow-v)}
+.hamburger{display:none;background:transparent;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:5px}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block;transition:all .3s}
+
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh;position:relative;z-index:1}
+.page.active{display:block}
+
+/* ─── HOME PAGE ─── */
+.hero{min-height:100vh;display:flex;align-items:center;padding:0 4%;position:relative;overflow:hidden}
+.hero-bg-effects{position:absolute;inset:0;pointer-events:none}
+.hero-orb1{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,.12),transparent 70%);top:-100px;left:-100px;animation:orbFloat 8s ease-in-out infinite}
+.hero-orb2{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.1),transparent 70%);bottom:-100px;right:-50px;animation:orbFloat 10s ease-in-out infinite reverse}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.04) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black,transparent)}
+.hero-left{flex:1;max-width:650px;z-index:2;animation:slideIn .9s ease forwards}
+@keyframes slideIn{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);border-radius:4px;margin-bottom:24px;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan2);font-family:'Share Tech Mono',monospace}
+.live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;box-shadow:0 0 6px var(--green)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:18px;letter-spacing:-1px}
+.hero-title .t1{display:block;color:#fff}
+.hero-title .t2{display:block;background:linear-gradient(135deg,var(--blue2),var(--violet3),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(124,58,237,.5))}
+.hero-desc{font-size:1rem;color:var(--muted2);max-width:500px;margin-bottom:36px;line-height:1.8;font-weight:400}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:50px}
+.btn-hero-main{padding:14px 32px;background:linear-gradient(135deg,var(--blue),var(--violet));border:none;border-radius:6px;color:#fff;font-family:'Exo 2',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.btn-hero-main::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.1);opacity:0;transition:opacity .3s}
+.btn-hero-main:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(124,58,237,.4)}
+.btn-hero-main:hover::before{opacity:1}
+.btn-hero-sec{padding:14px 32px;background:transparent;border:1px solid rgba(6,182,212,.3);border-radius:6px;color:var(--cyan2);font-family:'Exo 2',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.btn-hero-sec:hover{background:rgba(6,182,212,.06);box-shadow:var(--glow-c);transform:translateY(-3px)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:480px}
+.hstat{padding:16px;background:rgba(255,255,255,.02);border:1px solid rgba(59,130,246,.1);border-radius:8px;transition:all .3s}
+.hstat:hover{border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.05)}
+.hstat-num{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:#fff;display:block}
+.hstat-label{font-size:.72rem;color:var(--muted2);text-transform:uppercase;letter-spacing:1px}
+.hero-right{flex:1;display:flex;justify-content:flex-end;align-items:center;z-index:2;padding-left:40px;animation:slideInR .9s ease .2s both forwards}
+@keyframes slideInR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.live-matches-card{background:rgba(7,13,28,.9);border:1px solid rgba(59,130,246,.2);border-radius:16px;padding:24px;width:360px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05)}
+.lmc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.lmc-title{font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.live-badge{display:flex;align-items:center;gap:5px;padding:3px 10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:4px;font-size:.65rem;letter-spacing:2px;color:#ef4444;font-family:'Share Tech Mono',monospace}
+.match-item{display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;margin-bottom:8px;transition:all .3s;cursor:pointer}
+.match-item:hover{border-color:rgba(59,130,246,.2);background:rgba(59,130,246,.04)}
+.match-game-icon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.fn-icon{background:linear-gradient(135deg,#051830,#0a4080)}
+.cr-icon-bg{background:linear-gradient(135deg,#1a0530,#5010a0)}
+.match-info{flex:1}
+.match-name{font-size:.82rem;font-weight:600;color:#fff;margin-bottom:2px}
+.match-meta{font-size:.7rem;color:var(--muted2);font-family:'Share Tech Mono',monospace}
+.match-bet{text-align:right}
+.match-bet-amount{font-family:'Share Tech Mono',monospace;font-size:.82rem;color:var(--gold);font-weight:700}
+.match-bet-label{font-size:.65rem;color:var(--muted2)}
+.match-status-live{display:inline-flex;align-items:center;gap:3px;font-size:.65rem;color:var(--green);font-family:'Share Tech Mono',monospace}
+
+/* ─── SECTION COMMONS ─── */
+.section{padding:90px 4%;position:relative;z-index:1}
+.sec-header{text-align:center;margin-bottom:56px}
+.sec-tag{display:inline-block;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan2);padding:4px 14px;border:1px solid rgba(6,182,212,.2);border-radius:3px;background:rgba(6,182,212,.04);margin-bottom:12px;font-family:'Share Tech Mono',monospace}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;color:#fff;margin-bottom:12px;line-height:1.2}
+.sec-title span{background:linear-gradient(135deg,var(--blue2),var(--violet3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sec-sub{color:var(--muted2);font-size:.95rem;max-width:500px;margin:0 auto}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.fade-up.vis{opacity:1;transform:translateY(0)}
+
+/* ─── MATCHES ─── */
+.matches-section{background:linear-gradient(180deg,var(--void) 0%,var(--deep) 100%)}
+.games-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:40px}
+.gtab{padding:10px 28px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--muted2);font-family:'Exo 2',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.gtab.active,.gtab:hover{color:#fff}
+.gtab-fn.active,.gtab-fn:hover{border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.08);box-shadow:var(--glow-b)}
+.gtab-cr.active,.gtab-cr:hover{border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.08);box-shadow:var(--glow-v)}
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:36px}
+.mode-card{padding:16px 14px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:10px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.mode-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s}
+.mode-card.fn-mode::before{background:linear-gradient(135deg,rgba(59,130,246,.08),transparent)}
+.mode-card.cr-mode::before{background:linear-gradient(135deg,rgba(124,58,237,.08),transparent)}
+.mode-card:hover{transform:translateY(-4px)}
+.mode-card.fn-mode:hover{border-color:rgba(59,130,246,.3);box-shadow:0 8px 30px rgba(59,130,246,.15)}
+.mode-card.cr-mode:hover{border-color:rgba(124,58,237,.3);box-shadow:0 8px 30px rgba(124,58,237,.15)}
+.mode-card:hover::before{opacity:1}
+.mode-icon{font-size:1.6rem;margin-bottom:8px;display:block}
+.mode-name{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;color:#fff;margin-bottom:4px}
+.mode-players{font-size:.68rem;color:var(--muted2)}
+.open-matches{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.open-match-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px;transition:all .4s;cursor:default}
+.open-match-card:hover{border-color:rgba(59,130,246,.25);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.omc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.omc-game{display:flex;align-items:center;gap:8px}
+.omc-game-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.omc-game-name{font-size:.8rem;font-weight:600;color:#fff}
+.omc-game-mode{font-size:.7rem;color:var(--muted2)}
+.omc-status{padding:3px 10px;border-radius:4px;font-size:.65rem;font-weight:700;letter-spacing:1px;font-family:'Share Tech Mono',monospace}
+.status-open{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green)}
+.status-live{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#ef4444}
+.omc-players{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.player-avatar{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;font-family:'Orbitron',sans-serif;border:1px solid rgba(255,255,255,.1)}
+.vs-label{font-size:.7rem;color:var(--muted2);font-family:'Share Tech Mono',monospace;padding:0 4px}
+.omc-bet{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.12);border-radius:6px;margin-bottom:14px}
+.omc-bet span:first-child{font-size:.72rem;color:var(--muted2)}
+.omc-bet-amount{font-family:'Share Tech Mono',monospace;font-size:.9rem;color:var(--gold);font-weight:700}
+.join-btn{width:100%;padding:10px;border:none;border-radius:6px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;font-family:'Exo 2',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.join-btn:hover{box-shadow:var(--glow-v);transform:translateY(-2px)}
+
+/* ─── LEADERBOARD ─── */
+.lb-section{background:var(--card2)}
+.lb-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:36px}
+.lb-tab{padding:8px 22px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--muted2);font-family:'Exo 2',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.lb-tab.active{border-color:rgba(6,182,212,.4);background:rgba(6,182,212,.08);color:var(--cyan2)}
+.lb-container{max-width:800px;margin:0 auto}
+.lb-header-row{display:grid;grid-template-columns:60px 1fr 100px 100px 100px;gap:8px;padding:10px 16px;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Share Tech Mono',monospace;border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:8px}
+.lb-row{display:grid;grid-template-columns:60px 1fr 100px 100px 100px;gap:8px;padding:14px 16px;background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:8px;margin-bottom:6px;transition:all .3s;align-items:center;cursor:default}
+.lb-row:hover{border-color:rgba(59,130,246,.2);background:rgba(59,130,246,.04);transform:translateX(4px)}
+.lb-row.top1{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.04)}
+.lb-row.top2{border-color:rgba(156,163,175,.2);background:rgba(156,163,175,.03)}
+.lb-row.top3{border-color:rgba(180,83,9,.2);background:rgba(180,83,9,.03)}
+.lb-rank{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:900;text-align:center}
+.lb-rank.gold{color:var(--gold);text-shadow:0 0 10px rgba(245,158,11,.5)}
+.lb-rank.silver{color:#9ca3af}
+.lb-rank.bronze{color:#b45309}
+.lb-rank.normal{color:var(--muted2)}
+.lb-player{display:flex;align-items:center;gap:10px}
+.lb-avatar{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;font-family:'Orbitron',sans-serif;flex-shrink:0}
+.lb-pname{font-size:.88rem;font-weight:600;color:#fff}
+.lb-ptag{font-size:.7rem;color:var(--muted2);font-family:'Share Tech Mono',monospace}
+.lb-coins{font-family:'Share Tech Mono',monospace;font-size:.85rem;color:var(--gold);font-weight:700}
+.lb-wins{font-family:'Share Tech Mono',monospace;font-size:.85rem;color:var(--green)}
+.lb-ratio{font-family:'Share Tech Mono',monospace;font-size:.85rem;color:var(--blue2)}
+
+/* ─── SHOP ─── */
+.shop-section{background:var(--void)}
+.shop-cats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.shop-cat{padding:7px 18px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--muted2);font-family:'Exo 2',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.shop-cat.active,.shop-cat:hover{border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.08);color:var(--violet3)}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.shop-item{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:all .4s;cursor:default;position:relative}
+.shop-item:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(124,58,237,.3);box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(124,58,237,.12)}
+.shop-item-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.shop-item-img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.3))}
+.rarity-common{background:linear-gradient(135deg,#1a2040,#2a3060)}
+.rarity-rare{background:linear-gradient(135deg,#0a2060,#1040a0)}
+.rarity-epic{background:linear-gradient(135deg,#2a0a60,#6010c0)}
+.rarity-legendary{background:linear-gradient(135deg,#402000,#a05000)}
+.shop-rarity{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:4px;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;z-index:2;font-family:'Share Tech Mono',monospace}
+.r-common{background:rgba(107,114,128,.2);border:1px solid rgba(107,114,128,.4);color:#9ca3af}
+.r-rare{background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.4);color:var(--blue2)}
+.r-epic{background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4);color:var(--violet3)}
+.r-legendary{background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:var(--gold)}
+.shop-item-body{padding:16px}
+.shop-item-name{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;color:#fff;margin-bottom:4px}
+.shop-item-desc{font-size:.75rem;color:var(--muted2);margin-bottom:14px;line-height:1.5}
+.shop-item-footer{display:flex;align-items:center;justify-content:space-between}
+.shop-price{display:flex;align-items:center;gap:4px;font-family:'Share Tech Mono',monospace;font-size:.88rem;color:var(--gold);font-weight:700}
+.shop-buy-btn{padding:7px 14px;border:none;border-radius:6px;background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;font-family:'Exo 2',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.shop-buy-btn:hover{transform:scale(1.05);box-shadow:var(--glow-v)}
+
+/* ─── TOURNAMENTS ─── */
+.tourney-section{background:var(--deep)}
+.tourney-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.tourney-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:all .4s;cursor:default}
+.tourney-card:hover{transform:translateY(-6px);border-color:rgba(59,130,246,.25);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.tc-banner{height:120px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.tc-banner-fn{background:linear-gradient(135deg,#020818,#041840,#082880)}
+.tc-banner-cr{background:linear-gradient(135deg,#08020e,#200450,#400880)}
+.tc-banner-emoji{font-size:3rem;filter:drop-shadow(0 0 20px rgba(255,255,255,.3))}
+.tc-status-badge{position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:4px;font-size:.65rem;font-weight:700;letter-spacing:1.5px;font-family:'Share Tech Mono',monospace}
+.tc-open{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);color:var(--green)}
+.tc-soon{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--gold)}
+.tc-ended{background:rgba(107,114,128,.1);border:1px solid rgba(107,114,128,.3);color:var(--muted2)}
+.tc-body{padding:20px}
+.tc-game{font-size:.68rem;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;font-family:'Share Tech Mono',monospace;margin-bottom:6px}
+.tc-name{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:12px}
+.tc-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.tc-info-item{padding:8px 12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:6px}
+.tc-info-label{font-size:.65rem;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.tc-info-val{font-family:'Share Tech Mono',monospace;font-size:.82rem;color:#fff;font-weight:600}
+.tc-prize{font-family:'Share Tech Mono',monospace;font-size:.82rem;color:var(--gold)}
+.tc-join-btn{width:100%;padding:10px;border:none;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.tc-join-open{background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff}
+.tc-join-soon{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--gold)}
+.tc-join-ended{background:rgba(107,114,128,.08);border:1px solid rgba(107,114,128,.2);color:var(--muted2);cursor:default}
+.tc-join-btn:hover:not(.tc-join-ended){transform:translateY(-2px);box-shadow:var(--glow-v)}
+
+/* ─── PROFILE ─── */
+.profile-section{background:var(--void)}
+.profile-card{max-width:900px;margin:0 auto;background:var(--card);border:1px solid rgba(59,130,246,.15);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.profile-banner{height:160px;background:linear-gradient(135deg,#010818,#02204a,#030e2a);position:relative;overflow:hidden}
+.profile-banner-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 30% 50%,rgba(59,130,246,.15),transparent)}
+.profile-avatar-wrap{position:absolute;bottom:-40px;left:30px}
+.profile-avatar{width:80px;height:80px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--violet));display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;font-family:'Orbitron',sans-serif;color:#fff;border:3px solid var(--card);box-shadow:0 0 20px rgba(124,58,237,.4)}
+.profile-body{padding:60px 30px 30px}
+.profile-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px;flex-wrap:wrap;gap:20px}
+.profile-info .profile-name{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:4px}
+.profile-info .profile-tag{font-size:.78rem;color:var(--cyan2);font-family:'Share Tech Mono',monospace;margin-bottom:8px}
+.profile-info .profile-bio{font-size:.88rem;color:var(--muted2);max-width:400px}
+.profile-coins-display{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.xcoins-big{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:1.4rem;color:var(--gold);font-weight:700}
+.profile-level{font-size:.75rem;color:var(--muted2);font-family:'Share Tech Mono',monospace}
+.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.pstat{padding:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;text-align:center}
+.pstat-val{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:4px}
+.pstat-key{font-size:.68rem;color:var(--muted2);text-transform:uppercase;letter-spacing:1px}
+.profile-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge-item{padding:5px 12px;border-radius:4px;font-size:.7rem;font-weight:700;letter-spacing:1px;font-family:'Share Tech Mono',monospace}
+.badge-fn{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);color:var(--blue2)}
+.badge-cr{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.3);color:var(--violet3)}
+.badge-gold{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--gold)}
+.badge-green{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green)}
+
+/* ─── AUTH MODAL ─── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s;backdrop-filter:blur(8px)}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:var(--card2);border:1px solid rgba(59,130,246,.2);border-radius:20px;padding:36px;width:420px;max-width:92vw;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 40px rgba(59,130,246,.1)}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted2);transition:all .3s}
+.modal-close:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.modal-logo{text-align:center;margin-bottom:24px}
+.modal-logo-text{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,var(--blue2),var(--violet3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px}
+.modal-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:28px}
+.modal-tab{flex:1;padding:10px;text-align:center;font-family:'Exo 2',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);cursor:pointer;transition:all .3s;border-bottom:2px solid transparent;margin-bottom:-1px}
+.modal-tab.active{color:var(--blue2);border-bottom-color:var(--blue)}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;font-family:'Share Tech Mono',monospace}
+.form-input{width:100%;padding:12px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-family:'Exo 2',sans-serif;font-size:.9rem;outline:none;transition:all .3s;cursor:text}
+.form-input:focus{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.04);box-shadow:0 0 15px rgba(59,130,246,.15)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{width:100%;padding:13px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;font-family:'Exo 2',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;margin-top:8px}
+.form-submit:hover{box-shadow:var(--glow-v);transform:translateY(-2px)}
+.social-divider{display:flex;align-items:center;gap:12px;margin:18px 0}
+.social-divider::before,.social-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+.social-divider span{font-size:.72rem;color:var(--muted2);font-family:'Share Tech Mono',monospace;letter-spacing:2px;white-space:nowrap}
+.social-logins{display:flex;gap:10px;margin-top:4px}
+/* ─── BOUTONS OAUTH CORRIGÉS ─── */
+.social-login-btn{flex:1;padding:11px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--text);font-family:'Exo 2',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.social-login-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+.social-login-btn.discord:hover{border-color:rgba(88,101,242,.5);background:rgba(88,101,242,.12);box-shadow:0 0 20px rgba(88,101,242,.2)}
+.social-login-btn.google:hover{border-color:rgba(234,67,53,.4);background:rgba(234,67,53,.08);box-shadow:0 0 20px rgba(234,67,53,.15)}
+.oauth-note{text-align:center;margin-top:14px;font-size:.7rem;color:var(--muted2);font-family:'Share Tech Mono',monospace;line-height:1.5}
+.oauth-note a{color:var(--blue2);text-decoration:none}
+
+/* ─── NOTIF ─── */
+.notif{position:fixed;bottom:24px;right:24px;z-index:3000;background:var(--card2);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.5);transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.175,.885,.32,1.275);max-width:300px}
+.notif.show{transform:translateY(0);opacity:1}
+.notif-text{font-size:.85rem;color:#fff;font-weight:500}
+
+/* ─── FOOTER ─── */
+footer{background:var(--deep);border-top:1px solid rgba(59,130,246,.08);padding:60px 4% 28px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;margin-bottom:48px}
+.footer-brand .fl{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;background:linear-gradient(90deg,var(--blue2),var(--violet3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;display:block;margin-bottom:12px}
+.footer-brand p{font-size:.85rem;color:var(--muted2);line-height:1.7;margin-bottom:18px}
+.socials{display:flex;gap:8px}
+.social-btn{width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--muted2);font-size:.9rem;cursor:pointer;transition:all .3s;text-decoration:none}
+.social-btn:hover{border-color:rgba(59,130,246,.3);color:var(--blue2);background:rgba(59,130,246,.06)}
+.footer-col h4{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-col ul a{color:var(--muted2);text-decoration:none;font-size:.83rem;transition:color .3s;cursor:pointer}
+.footer-col ul a:hover{color:var(--blue2)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-bottom p{font-size:.78rem;color:var(--muted)}
+.footer-badges{display:flex;gap:8px}
+.fbadge{padding:4px 10px;border-radius:4px;font-size:.68rem;font-weight:600;letter-spacing:.5px;font-family:'Share Tech Mono',monospace}
+.fbadge-s{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .hero{flex-direction:column;padding-top:100px;text-align:center}
+  .hero-left{max-width:100%}
+  .hero-desc{margin:0 auto 36px}
+  .hero-btns{justify-content:center}
+  .hero-stats{margin:0 auto}
+  .hero-right{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(1,2,5,.97);flex-direction:column;padding:20px;gap:6px;border-bottom:1px solid rgba(59,130,246,.1)}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  .lb-header-row,.lb-row{grid-template-columns:48px 1fr 80px}
+  .lb-row>:nth-child(4),.lb-row>:nth-child(5),.lb-header-row>:nth-child(4),.lb-header-row>:nth-child(5){display:none}
+  .profile-stats{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  /* FIX MOBILE : curseur normal sur mobile */
+  #cursor,#cursor-ring{display:none}
+  body{cursor:auto}
+  /* Tous les boutons cliquables sur mobile */
+  button,a,.modal-tab,.gtab,.lb-tab,.shop-cat,.mode-card,.social-btn{cursor:pointer}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo-wrap">
+    <svg class="loader-x" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 10 L38 38 L10 70" stroke="url(#gb)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M70 10 L42 38 L70 70" stroke="url(#gv)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M38 38 L42 38" stroke="url(#gc)" stroke-width="6" stroke-linecap="round"/>
+      <defs>
+        <linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+        <linearGradient id="gv" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+        <linearGradient id="gc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06b6d4"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+      </defs>
+    </svg>
+    <div class="loader-name">XENOVRA</div>
+    <div class="loader-sub">Building The Future of Gaming</div>
+  </div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-code" id="loaderCode">INITIALIZING SYSTEMS...</div>
+</div>
+
+<!-- CANVAS -->
+<canvas id="bg"></canvas>
+
+<!-- NOTIF -->
+<div class="notif" id="notif"><span id="notifIcon">✅</span><span class="notif-text" id="notifText">Action effectuée !</span></div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-logo"><div class="modal-logo-text">XENOVRA</div></div>
+    <div class="modal-tabs">
+      <div class="modal-tab active" id="tabLogin" onclick="switchAuthTab('login',this)">Connexion</div>
+      <div class="modal-tab" id="tabRegister" onclick="switchAuthTab('register',this)">Inscription</div>
     </div>
-  </body>
+    <div id="authForm">
+      <!-- Formulaire Email/Mot de passe -->
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="emailInput" placeholder="gamer@xenovra.gg"></div>
+      <div class="form-group"><label class="form-label">Mot de passe</label><input class="form-input" type="password" id="passInput" placeholder="••••••••"></div>
+      <div class="form-group" id="usernameGroup" style="display:none"><label class="form-label">Pseudo</label><input class="form-input" type="text" id="userInput" placeholder="GamerXenovra01"></div>
+      <button class="form-submit" id="submitBtn" onclick="handleEmailAuth()">Se connecter →</button>
+
+      <!-- Séparateur -->
+      <div class="social-divider"><span>ou continuer avec</span></div>
+
+      <!-- ✅ FIX : Boutons Discord et Google redirigent vers OAuth -->
+      <div class="social-logins">
+        <button class="social-login-btn discord" onclick="loginWithDiscord()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.034.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Discord
+        </button>
+        <button class="social-login-btn google" onclick="loginWithGoogle()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Google
+        </button>
+      </div>
+      <!-- Note explicative -->
+      <p class="oauth-note" id="oauthNote">
+        ⚠️ Pour activer Discord/Google, configure ton Client ID dans le script.<br>
+        <span style="color:var(--muted);font-size:.65rem">Voir les commentaires dans le code JavaScript</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <!-- FIX : href="javascript:void(0)" pour éviter les sauts de page -->
+  <a href="javascript:void(0)" class="nav-logo" onclick="showPage('home')">
+    <svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+      <path d="M10 10 L38 38 L10 70" stroke="url(#nb1)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M70 10 L42 38 L70 70" stroke="url(#nb2)" stroke-width="6" stroke-linecap="round"/>
+      <defs>
+        <linearGradient id="nb1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+        <linearGradient id="nb2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+      </defs>
+    </svg>
+    <span class="nav-logo-text">XENOVRA</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <!-- FIX : href="javascript:void(0)" sur tous les liens nav -->
+    <li><a href="javascript:void(0)" onclick="showPage('matches')" data-page="matches"><span>⚔️</span> Matchs</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('tournaments')" data-page="tournaments"><span>🏆</span> Tournois</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('leaderboard')" data-page="leaderboard"><span>📊</span> Classement</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('shop')" data-page="shop"><span>🛍️</span> Boutique</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('profile')" data-page="profile"><span>👤</span> Profil</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="xcoins-display">⚡ <span id="navCoins">4 250</span> XC</div>
+    <button class="btn-login" onclick="openModal('login')">Connexion</button>
+    <button class="btn-register" onclick="openModal('register')">S'inscrire</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ══════ HOME PAGE ══════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg-effects">
+      <div class="hero-orb1"></div>
+      <div class="hero-orb2"></div>
+      <div class="hero-grid-lines"></div>
+    </div>
+    <div class="hero-left">
+      <div class="hero-badge"><span class="live-dot"></span> 847 joueurs en ligne maintenant</div>
+      <h1 class="hero-title">
+        <span class="t1">L'Arène Compétitive</span>
+        <span class="t2">Du Gaming Futur</span>
+      </h1>
+      <p class="hero-desc">Affronte les meilleurs joueurs Fortnite & Clash Royale. Mise des XCoins, gagne des tournois, grimpe dans les classements mondiaux.</p>
+      <div class="hero-btns">
+        <button class="btn-hero-main" onclick="showPage('matches')">⚔️ Trouver un match</button>
+        <button class="btn-hero-sec" onclick="showPage('tournaments')">🏆 Voir les tournois</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-num" data-target="12450">0</span><span class="hstat-label">Joueurs</span></div>
+        <div class="hstat"><span class="hstat-num" data-target="98740">0</span><span class="hstat-label">Matchs joués</span></div>
+        <div class="hstat"><span class="hstat-num" data-target="2850000">0</span><span class="hstat-label">XCoins distribués</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="live-matches-card">
+        <div class="lmc-header">
+          <div class="lmc-title">Matchs en cours</div>
+          <div class="live-badge"><span style="width:6px;height:6px;background:#ef4444;border-radius:50%;display:inline-block"></span> LIVE</div>
+        </div>
+        <div id="liveMatchesList"></div>
+        <div style="text-align:center;margin-top:12px">
+          <button style="background:transparent;border:none;color:var(--blue2);font-size:.78rem;font-family:'Share Tech Mono',monospace;cursor:pointer;letter-spacing:1px" onclick="showPage('matches')">Voir tous les matchs →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK FEATURES -->
+  <section class="section" style="padding-top:0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1100px;margin:0 auto" class="fade-up">
+      <div style="padding:24px;background:var(--card);border:1px solid rgba(59,130,246,.12);border-radius:12px;transition:all .3s" onmouseover="this.style.borderColor='rgba(59,130,246,.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(59,130,246,.12)';this.style.transform='translateY(0)'">
+        <div style="font-size:1.8rem;margin-bottom:12px">⚔️</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;color:#fff;margin-bottom:6px">Matchs compétitifs</div>
+        <div style="font-size:.8rem;color:var(--muted2);line-height:1.6">1v1 à 4v4 sur Fortnite & Clash Royale avec paris de XCoins</div>
+      </div>
+      <div style="padding:24px;background:var(--card);border:1px solid rgba(124,58,237,.12);border-radius:12px;transition:all .3s" onmouseover="this.style.borderColor='rgba(124,58,237,.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(124,58,237,.12)';this.style.transform='translateY(0)'">
+        <div style="font-size:1.8rem;margin-bottom:12px">🏆</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;color:#fff;margin-bottom:6px">Tournois officiels</div>
+        <div style="font-size:.8rem;color:var(--muted2);line-height:1.6">Brackets organisés avec prize pools en XCoins et récompenses exclusives</div>
+      </div>
+      <div style="padding:24px;background:var(--card);border:1px solid rgba(6,182,212,.12);border-radius:12px;transition:all .3s" onmouseover="this.style.borderColor='rgba(6,182,212,.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(6,182,212,.12)';this.style.transform='translateY(0)'">
+        <div style="font-size:1.8rem;margin-bottom:12px">⚡</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;color:#fff;margin-bottom:6px">XCoins System</div>
+        <div style="font-size:.8rem;color:var(--muted2);line-height:1.6">Gagne des XCoins en jouant, mise sur tes matchs, achète des cosmétiques</div>
+      </div>
+      <div style="padding:24px;background:var(--card);border:1px solid rgba(245,158,11,.12);border-radius:12px;transition:all .3s" onmouseover="this.style.borderColor='rgba(245,158,11,.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,158,11,.12)';this.style.transform='translateY(0)'">
+        <div style="font-size:1.8rem;margin-bottom:12px">🛡️</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;color:#fff;margin-bottom:6px">Anti-triche</div>
+        <div style="font-size:.8rem;color:var(--muted2);line-height:1.6">Système de validation des résultats, screenshots obligatoires, modération active</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════ MATCHES PAGE ══════ -->
+<div class="page" id="page-matches" style="padding-top:88px">
+  <section class="section matches-section">
+    <div class="sec-header fade-up">
+      <div class="sec-tag">Arène</div>
+      <h2 class="sec-title">Matchs <span>Compétitifs</span></h2>
+      <p class="sec-sub">Rejoins un match ouvert ou crée le tien et mise tes XCoins</p>
+    </div>
+    <div class="games-tabs fade-up">
+      <button class="gtab gtab-fn active" onclick="switchGame('fn',this)">⚡ Fortnite</button>
+      <button class="gtab gtab-cr" onclick="switchGame('cr',this)">👑 Clash Royale</button>
+    </div>
+    <div class="fade-up">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--cyan2);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">// MODES DE JEU</div>
+      <div class="modes-grid" id="modesGrid"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--cyan2);letter-spacing:2px;text-transform:uppercase">// MATCHS OUVERTS</div>
+        <button onclick="showCreateMatch()" style="padding:10px 22px;background:linear-gradient(135deg,var(--blue),var(--violet));border:none;border-radius:6px;color:#fff;font-family:'Exo 2',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s" onmouseover="this.style.boxShadow='var(--glow-v)'" onmouseout="this.style.boxShadow='none'">+ Créer un match</button>
+      </div>
+      <div class="open-matches" id="openMatches"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════ LEADERBOARD PAGE ══════ -->
+<div class="page" id="page-leaderboard" style="padding-top:88px">
+  <section class="section lb-section">
+    <div class="sec-header fade-up">
+      <div class="sec-tag">Classement</div>
+      <h2 class="sec-title">Les Meilleurs <span>Joueurs</span></h2>
+      <p class="sec-sub">Top joueurs par XCoins gagnés cette semaine</p>
+    </div>
+    <div class="lb-tabs fade-up">
+      <button class="lb-tab active" onclick="switchLb('day',this)">Aujourd'hui</button>
+      <button class="lb-tab" onclick="switchLb('week',this)">Cette semaine</button>
+      <button class="lb-tab" onclick="switchLb('month',this)">Ce mois</button>
+    </div>
+    <div class="lb-container fade-up">
+      <div class="lb-header-row">
+        <div>#</div><div>Joueur</div><div>XCoins</div><div>Victoires</div><div>Ratio</div>
+      </div>
+      <div id="lbRows"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════ SHOP PAGE ══════ -->
+<div class="page" id="page-shop" style="padding-top:88px">
+  <section class="section shop-section">
+    <div class="sec-header fade-up">
+      <div class="sec-tag">Boutique</div>
+      <h2 class="sec-title">Boutique <span>XCoins</span></h2>
+      <p class="sec-sub">Dépense tes XCoins pour personnaliser ton profil</p>
+    </div>
+    <div class="shop-cats fade-up">
+      <button class="shop-cat active" onclick="filterShop('all',this)">Tout</button>
+      <button class="shop-cat" onclick="filterShop('avatar',this)">🖼️ Avatars</button>
+      <button class="shop-cat" onclick="filterShop('titre',this)">🏷️ Titres</button>
+      <button class="shop-cat" onclick="filterShop('badge',this)">🏅 Badges</button>
+      <button class="shop-cat" onclick="filterShop('effet',this)">✨ Effets</button>
+      <button class="shop-cat" onclick="filterShop('cadre',this)">🖼 Cadres</button>
+    </div>
+    <div class="shop-grid fade-up" id="shopGrid"></div>
+  </section>
+</div>
+
+<!-- ══════ TOURNAMENTS PAGE ══════ -->
+<div class="page" id="page-tournaments" style="padding-top:88px">
+  <section class="section tourney-section">
+    <div class="sec-header fade-up">
+      <div class="sec-tag">Tournois</div>
+      <h2 class="sec-title">Tournois <span>Officiels</span></h2>
+      <p class="sec-sub">Inscris-toi et bats-toi pour la gloire et les XCoins</p>
+    </div>
+    <div class="tourney-grid fade-up" id="tourneyGrid"></div>
+  </section>
+</div>
+
+<!-- ══════ PROFILE PAGE ══════ -->
+<div class="page" id="page-profile" style="padding-top:88px">
+  <section class="section profile-section">
+    <div class="sec-header fade-up">
+      <div class="sec-tag">Espace Joueur</div>
+      <h2 class="sec-title">Mon <span>Profil</span></h2>
+    </div>
+    <div class="profile-card fade-up">
+      <div class="profile-banner">
+        <div class="profile-banner-glow"></div>
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar">X</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-top">
+          <div class="profile-info">
+            <div class="profile-name">XenoPlayer_01</div>
+            <div class="profile-tag">@xenoplayer · Membre depuis Jan 2025</div>
+            <div class="profile-bio">Joueur compétitif Fortnite & Clash Royale. Top 50 leaderboard. Let's go ! 🔥</div>
+          </div>
+          <div class="profile-coins-display">
+            <div class="xcoins-big">⚡ 4 250 <span style="font-size:.9rem;color:var(--muted2)">XC</span></div>
+            <div class="profile-level">Niveau 47 · Rang Elite</div>
+          </div>
+        </div>
+        <div class="profile-stats">
+          <div class="pstat"><div class="pstat-val" style="color:var(--green)">127</div><div class="pstat-key">Victoires</div></div>
+          <div class="pstat"><div class="pstat-val" style="color:#ef4444">43</div><div class="pstat-key">Défaites</div></div>
+          <div class="pstat"><div class="pstat-val" style="color:var(--blue2)">74%</div><div class="pstat-key">Win Rate</div></div>
+          <div class="pstat"><div class="pstat-val" style="color:var(--gold)">18 400</div><div class="pstat-key">XC gagnés</div></div>
+        </div>
+        <div class="profile-badges">
+          <span class="badge-item badge-fn">⚡ Fortnite Elite</span>
+          <span class="badge-item badge-cr">👑 CR Champion</span>
+          <span class="badge-item badge-gold">⭐ Top 50</span>
+          <span class="badge-item badge-green">🛡️ Fair Play</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="fl">XENOVRA</span>
+      <p>La plateforme compétitive gaming de nouvelle génération. Fortnite, Clash Royale, XCoins, tournois et plus encore.</p>
+      <div class="socials">
+        <a class="social-btn" onclick="notify('Discord bientôt !')">💬</a>
+        <a class="social-btn" onclick="notify('Telegram bientôt !')">✈️</a>
+        <a class="social-btn" onclick="notify('TikTok bientôt !')">🎵</a>
+        <a class="social-btn" onclick="notify('Instagram bientôt !')">📸</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Jeux</h4>
+      <ul>
+        <li><a onclick="showPage('matches')">Fortnite</a></li>
+        <li><a onclick="showPage('matches')">Clash Royale</a></li>
+        <li><a onclick="showPage('matches')">Matchs</a></li>
+        <li><a onclick="showPage('tournaments')">Tournois</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Communauté</h4>
+      <ul>
+        <li><a onclick="showPage('leaderboard')">Classement</a></li>
+        <li><a onclick="showPage('shop')">Boutique</a></li>
+        <li><a onclick="notify('Discord bientôt !')">Discord</a></li>
+        <li><a onclick="notify('Règles bientôt disponibles !')">Règles</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a onclick="notify('Contact bientôt disponible !')">Contact</a></li>
+        <li><a onclick="notify('FAQ bientôt disponible !')">FAQ</a></li>
+        <li><a onclick="notify('CGU bientôt disponible !')">CGU</a></li>
+        <li><a onclick="notify('Confidentialité bientôt disponible !')">Confidentialité</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 XENOVRA — Building The Future of Gaming · Non affilié à Epic Games ou Supercell</p>
+    <div class="footer-badges">
+      <span class="fbadge fbadge-s">🔒 SSL</span>
+      <span class="fbadge fbadge-s">✅ Sécurisé</span>
+      <span class="fbadge fbadge-s">⚡ Anti-triche</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  ⚙️  CONFIGURATION OAUTH — REMPLIS ICI TES CLÉS
+// ══════════════════════════════════════════════════════
+const OAUTH_CONFIG = {
+  // Discord OAuth2 :
+  // 1. Va sur https://discord.com/developers/applications
+  // 2. Crée une application → OAuth2 → Ajoute ton URL de redirect
+  // 3. Copie le Client ID ici
+  DISCORD_CLIENT_ID: 'TON_CLIENT_ID_DISCORD', // ← à remplacer
+  DISCORD_REDIRECT_URI: window.location.origin + window.location.pathname, // auto-détecté
+  DISCORD_SCOPE: 'identify email',
+
+  // Google OAuth2 :
+  // 1. Va sur https://console.cloud.google.com
+  // 2. APIs & Services → Identifiants → Créer un identifiant OAuth 2.0
+  // 3. Copie le Client ID ici
+  GOOGLE_CLIENT_ID: 'TON_CLIENT_ID_GOOGLE.apps.googleusercontent.com', // ← à remplacer
+  GOOGLE_REDIRECT_URI: window.location.origin + window.location.pathname, // auto-détecté
+};
+// ══════════════════════════════════════════════════════
+
+// ─── CURSOR ───
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)}
+animRing();
+
+// ─── CANVAS ───
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let pts=[];
+function resizeCv(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+function makePts(){pts=[];const n=Math.min(60,Math.floor(window.innerWidth/18));for(let i=0;i<n;i++)pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.2+.4,a:Math.random()*.4+.1,c:Math.random()>.5?'59,130,246':'124,58,237'})}
+function drawCv(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},${p.a})`;ctx.fill()});pts.forEach((a,i)=>pts.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<90){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(59,130,246,${.06*(1-d/90)})`;ctx.lineWidth=.5;ctx.stroke()}}));requestAnimationFrame(drawCv)}
+resizeCv();makePts();drawCv();
+window.addEventListener('resize',()=>{resizeCv();makePts()});
+
+// ─── LOADER ───
+const loaderMessages=['INITIALIZING SYSTEMS...','LOADING GAME DATA...','CONNECTING TO SERVERS...','CALIBRATING ANTI-CHEAT...','ENTERING THE ARENA...'];
+let lmi=0;
+const lmInterval=setInterval(()=>{lmi++;if(lmi<loaderMessages.length)document.getElementById('loaderCode').textContent=loaderMessages[lmi];},400);
+setTimeout(()=>{clearInterval(lmInterval);document.getElementById('loader').classList.add('hidden');initCounters();},2200);
+
+// ─── NAVBAR ───
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ─── PAGE SYSTEM ─── FIX : reset correct de la nav active
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = document.getElementById('page-'+id);
+  if(page) page.classList.add('active');
+  // FIX : mise à jour correcte du lien actif dans la nav
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.remove('active');
+    a.style.border = '';
+    if(a.dataset.page===id) a.classList.add('active');
+  });
+  // Fermer le menu mobile si ouvert
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo(0,0);
+  // FIX : observer après un court délai pour que le DOM soit prêt
+  setTimeout(()=>{
+    document.querySelectorAll('#page-'+id+' .fade-up').forEach(el=>observer.observe(el));
+  },50);
+  if(id==='leaderboard') renderLb('day');
+  if(id==='matches') renderMatches('fn');
+  if(id==='shop') renderShop('all');
+  if(id==='tournaments') renderTourneys();
+}
+
+// ─── OBSERVER ───
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add('vis');
+    if(e.target.querySelector('[data-target]')) e.target.querySelectorAll('[data-target]').forEach(animCount);
+  }
+}),{threshold:.1});
+// FIX : init après le loader
+setTimeout(()=>document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el)),2300);
+
+// ─── COUNTERS ───
+function animCount(el){
+  const t=parseInt(el.dataset.target.replace(/,/g,''));
+  let c=0;
+  const s=t/(2000/16);
+  const iv=setInterval(()=>{c=Math.min(c+s,t);el.textContent=Math.floor(c).toLocaleString('fr-FR')+'+';if(c>=t)clearInterval(iv)},16);
+}
+function initCounters(){document.querySelectorAll('[data-target]').forEach(animCount)}
+
+// ─── MODAL ───
+function openModal(tab='login'){
+  document.getElementById('authModal').classList.add('open');
+  // Activer le bon onglet selon le bouton cliqué
+  if(tab==='register'){
+    switchAuthTab('register', document.getElementById('tabRegister'));
+  } else {
+    switchAuthTab('login', document.getElementById('tabLogin'));
+  }
+}
+function closeModal(){document.getElementById('authModal').classList.remove('open')}
+
+// FIX : switchAuthTab change aussi le formulaire selon l'onglet
+let currentAuthTab = 'login';
+function switchAuthTab(tab, btn){
+  currentAuthTab = tab;
+  document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const usernameGroup = document.getElementById('usernameGroup');
+  const submitBtn = document.getElementById('submitBtn');
+  if(tab==='register'){
+    usernameGroup.style.display='block';
+    submitBtn.textContent = 'Créer mon compte →';
+  } else {
+    usernameGroup.style.display='none';
+    submitBtn.textContent = 'Se connecter →';
+  }
+}
+
+// FIX : connexion email/mdp (simulation — à connecter à ton backend)
+function handleEmailAuth(){
+  const email = document.getElementById('emailInput').value.trim();
+  const pass = document.getElementById('passInput').value.trim();
+  if(!email || !pass){
+    notify('Remplis tous les champs !','⚠️');
+    return;
+  }
+  // Ici tu peux appeler ton API backend
+  // fetch('/api/login', { method: 'POST', body: JSON.stringify({email, pass}) })
+  closeModal();
+  notify(currentAuthTab==='register' ? 'Compte créé ! Bienvenue sur XENOVRA 🎮' : 'Connexion réussie ! Bienvenue sur XENOVRA 🎮');
+}
+
+// ══════════════════════════════════════════════════════
+// ✅ FIX PRINCIPAL : Connexion Discord — vraie redirection OAuth
+// ══════════════════════════════════════════════════════
+function loginWithDiscord(){
+  // Vérifie que le Client ID est configuré
+  if(OAUTH_CONFIG.DISCORD_CLIENT_ID === 'TON_CLIENT_ID_DISCORD'){
+    notify('Configure ton Discord Client ID dans le script !','⚙️');
+    return;
+  }
+  // Construction de l'URL OAuth Discord officielle
+  const params = new URLSearchParams({
+    client_id: OAUTH_CONFIG.DISCORD_CLIENT_ID,
+    redirect_uri: OAUTH_CONFIG.DISCORD_REDIRECT_URI,
+    response_type: 'token',
+    scope: OAUTH_CONFIG.DISCORD_SCOPE,
+  });
+  // Redirection réelle vers Discord
+  window.location.href = `https://discord.com/api/oauth2/authorize?${params.toString()}`;
+}
+
+// ══════════════════════════════════════════════════════
+// ✅ FIX PRINCIPAL : Connexion Google — vraie redirection OAuth
+// ══════════════════════════════════════════════════════
+function loginWithGoogle(){
+  // Vérifie que le Client ID est configuré
+  if(OAUTH_CONFIG.GOOGLE_CLIENT_ID === 'TON_CLIENT_ID_GOOGLE.apps.googleusercontent.com'){
+    notify('Configure ton Google Client ID dans le script !','⚙️');
+    return;
+  }
+  // Construction de l'URL OAuth Google officielle
+  const params = new URLSearchParams({
+    client_id: OAUTH_CONFIG.GOOGLE_CLIENT_ID,
+    redirect_uri: OAUTH_CONFIG.GOOGLE_REDIRECT_URI,
+    response_type: 'token',
+    scope: 'openid email profile',
+    include_granted_scopes: 'true',
+  });
+  // Redirection réelle vers Google
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+}
+
+// Fermer le modal en cliquant dehors
+document.getElementById('authModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('authModal')) closeModal();
+});
+
+// ─── NOTIFY ───
+function notify(msg,icon='✅'){
+  document.getElementById('notifText').textContent=msg;
+  document.getElementById('notifIcon').textContent=icon;
+  const n=document.getElementById('notif');
+  n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),3500);
+}
+
+// ─── DATA ───
+const fnModes=[{icon:'🥊',name:'Boxfight',players:'1v1 · 2v2 · 3v3 · 4v4'},{icon:'🌀',name:'Zone Wars',players:'1v1 · 2v2 · 4v4'},{icon:'🏗️',name:'Build Fight',players:'1v1 · 2v2'},{icon:'🎯',name:'Realistic',players:'1v1 · 2v2 · 3v3'},{icon:'🧩',name:'Piece Control',players:'1v1'},{icon:'🚫',name:'Zero Build',players:'1v1 · 2v2 · 4v4'}];
+const crModes=[{icon:'⚔️',name:'Battle',players:'1v1'},{icon:'🔄',name:'Duel',players:'1v1'},{icon:'📋',name:'Draft',players:'1v1'},{icon:'🌟',name:'Mega Draft',players:'1v1'},{icon:'3️⃣',name:'Triple Draft',players:'1v1'},{icon:'🪞',name:'Mirror',players:'1v1'},{icon:'🏈',name:'Touchdown',players:'1v1 · 2v2'},{icon:'⚡',name:'x7 Elixir',players:'1v1'},{icon:'👥',name:'2v2 Touchdown',players:'2v2'}];
+const openMatchesData=[
+  {id:1,game:'fn',icon:'⚡',gameName:'Fortnite',mode:'Boxfight 1v1',p1:{name:'NovaBeast',color:'#3b82f6'},p2:null,bet:500,status:'open'},
+  {id:2,game:'cr',icon:'👑',gameName:'Clash Royale',mode:'Draft 1v1',p1:{name:'CRKingdom',color:'#7c3aed'},p2:{name:'RoyalCrush',color:'#a78bfa'},bet:1200,status:'live'},
+  {id:3,game:'fn',icon:'⚡',gameName:'Fortnite',mode:'Zone Wars 2v2',p1:{name:'ProBuilderX',color:'#06b6d4'},p2:null,bet:800,status:'open'},
+  {id:4,game:'cr',icon:'👑',gameName:'Clash Royale',mode:'Mega Draft 1v1',p1:{name:'GoblinQueen',color:'#10b981'},p2:null,bet:350,status:'open'},
+  {id:5,game:'fn',icon:'⚡',gameName:'Fortnite',mode:'Realistic 3v3',p1:{name:'TeamAlpha',color:'#f59e0b'},p2:{name:'TeamBeta',color:'#ef4444'},bet:2000,status:'live'},
+  {id:6,game:'fn',icon:'⚡',gameName:'Fortnite',mode:'Zero Build 1v1',p1:{name:'StealthFN',color:'#8b5cf6'},p2:null,bet:600,status:'open'},
+];
+const lbData={
+  day:[{name:'XenoProFN',tag:'#1024',coins:8450,wins:12,ratio:92,color:'#3b82f6'},{name:'CRMaster99',tag:'#0887',coins:6200,wins:9,ratio:88,color:'#7c3aed'},{name:'ZeroGravity',tag:'#3341',coins:5800,wins:11,ratio:85,color:'#06b6d4'},{name:'NovaBeast',tag:'#7712',coins:4900,wins:8,ratio:80,color:'#10b981'},{name:'RoyalCrush',tag:'#5521',coins:3700,wins:7,ratio:77,color:'#f59e0b'},{name:'StealthFN',tag:'#9904',coins:3200,wins:6,ratio:75,color:'#8b5cf6'},{name:'GoblinKing',tag:'#4413',coins:2800,wins:5,ratio:71,color:'#ef4444'},{name:'ProBuilderX',tag:'#2267',coins:2400,wins:4,ratio:68,color:'#ec4899'}],
+  week:[{name:'CRMaster99',tag:'#0887',coins:42000,wins:67,ratio:91,color:'#7c3aed'},{name:'XenoProFN',tag:'#1024',coins:38500,wins:58,ratio:88,color:'#3b82f6'},{name:'NovaBeast',tag:'#7712',coins:31000,wins:49,ratio:84,color:'#10b981'},{name:'ZeroGravity',tag:'#3341',coins:27500,wins:44,ratio:82,color:'#06b6d4'},{name:'RoyalCrush',tag:'#5521',coins:24000,wins:40,ratio:79,color:'#f59e0b'},{name:'StealthFN',tag:'#9904',coins:21000,wins:36,ratio:76,color:'#8b5cf6'},{name:'GoblinKing',tag:'#4413',coins:18500,wins:31,ratio:73,color:'#ef4444'},{name:'ProBuilderX',tag:'#2267',coins:15000,wins:25,ratio:70,color:'#ec4899'}],
+  month:[{name:'ZeroGravity',tag:'#3341',coins:180000,wins:280,ratio:90,color:'#06b6d4'},{name:'XenoProFN',tag:'#1024',coins:165000,wins:255,ratio:87,color:'#3b82f6'},{name:'CRMaster99',tag:'#0887',coins:154000,wins:240,ratio:86,color:'#7c3aed'},{name:'NovaBeast',tag:'#7712',coins:142000,wins:220,ratio:83,color:'#10b981'},{name:'StealthFN',tag:'#9904',coins:128000,wins:198,ratio:80,color:'#8b5cf6'},{name:'RoyalCrush',tag:'#5521',coins:115000,wins:178,ratio:77,color:'#f59e0b'},{name:'ProBuilderX',tag:'#2267',coins:98000,wins:152,ratio:74,color:'#ec4899'},{name:'GoblinKing',tag:'#4413',coins:87000,wins:134,ratio:71,color:'#ef4444'}]
+};
+const shopItems=[
+  {cat:'avatar',icon:'🦊',name:'Fox Elite Avatar',desc:'Avatar renard futuriste exclusif',price:800,rarity:'epic',rarityClass:'rarity-epic',rarityLabel:'r-epic',rarityText:'ÉPIQUE'},
+  {cat:'titre',icon:'⚡',name:'Titre "Thunder God"',desc:'Affiche ton titre légendaire en jeu',price:1200,rarity:'legendary',rarityClass:'rarity-legendary',rarityLabel:'r-legendary',rarityText:'LÉGENDAIRE'},
+  {cat:'badge',icon:'🏅',name:'Badge Fortnite Pro',desc:'Badge exclusif joueurs Fortnite vétérans',price:600,rarity:'rare',rarityClass:'rarity-rare',rarityLabel:'r-rare',rarityText:'RARE'},
+  {cat:'effet',icon:'✨',name:'Effet Particules Néon',desc:'Aura de particules violettes sur ton profil',price:1500,rarity:'legendary',rarityClass:'rarity-legendary',rarityLabel:'r-legendary',rarityText:'LÉGENDAIRE'},
+  {cat:'cadre',icon:'🖼',name:'Cadre Cyber Blue',desc:'Cadre de profil holographique bleu',price:400,rarity:'rare',rarityClass:'rarity-rare',rarityLabel:'r-rare',rarityText:'RARE'},
+  {cat:'avatar',icon:'🐺',name:'Wolf Alpha Avatar',desc:'Avatar loup alpha dominateur',price:500,rarity:'rare',rarityClass:'rarity-rare',rarityLabel:'r-rare',rarityText:'RARE'},
+  {cat:'titre',icon:'👑',name:'Titre "Clash King"',desc:'Titre prestige pour les maîtres CR',price:1000,rarity:'epic',rarityClass:'rarity-epic',rarityLabel:'r-epic',rarityText:'ÉPIQUE'},
+  {cat:'badge',icon:'🛡️',name:'Badge Fair Play',desc:'Récompense les joueurs respectueux',price:200,rarity:'common',rarityClass:'rarity-common',rarityLabel:'r-common',rarityText:'COMMUN'},
+  {cat:'effet',icon:'🌊',name:'Effet Vague Cyan',desc:'Ondulation cyan autour de ton avatar',price:900,rarity:'epic',rarityClass:'rarity-epic',rarityLabel:'r-epic',rarityText:'ÉPIQUE'},
+  {cat:'cadre',icon:'🔥',name:'Cadre Inferno',desc:'Cadre enflammé pour les warriors',price:700,rarity:'epic',rarityClass:'rarity-epic',rarityLabel:'r-epic',rarityText:'ÉPIQUE'},
+  {cat:'avatar',icon:'🤖',name:'Xeno Bot Avatar',desc:'Avatar robot exclusif XENOVRA',price:300,rarity:'common',rarityClass:'rarity-common',rarityLabel:'r-common',rarityText:'COMMUN'},
+  {cat:'badge',icon:'⭐',name:'Badge Top 100',desc:'Pour les joueurs classés Top 100',price:1800,rarity:'legendary',rarityClass:'rarity-legendary',rarityLabel:'r-legendary',rarityText:'LÉGENDAIRE'},
+];
+const tourneyData=[
+  {game:'fn',banner:'tc-banner-fn',emoji:'⚡',status:'open',statusClass:'tc-open',statusText:'INSCRIPTIONS',name:'XENOVRA Fortnite Cup #8',mode:'Zero Build 1v1',prize:'25 000 XC',players:'64/128',date:'15 Jan 2025',btnClass:'tc-join-open',btnText:"S'inscrire →"},
+  {game:'cr',banner:'tc-banner-cr',emoji:'👑',status:'open',statusClass:'tc-open',statusText:'INSCRIPTIONS',name:'Clash Royale Grand Prix',mode:'Draft 1v1',prize:'18 000 XC',players:'32/64',date:'18 Jan 2025',btnClass:'tc-join-open',btnText:"S'inscrire →"},
+  {game:'fn',banner:'tc-banner-fn',emoji:'⚡',status:'soon',statusClass:'tc-soon',statusText:'BIENTÔT',name:'Fortnite Boxfight Elite',mode:'Boxfight 2v2',prize:'40 000 XC',players:'0/32',date:'22 Jan 2025',btnClass:'tc-join-soon',btnText:'Rappel →'},
+  {game:'cr',banner:'tc-banner-cr',emoji:'👑',status:'open',statusClass:'tc-open',statusText:'INSCRIPTIONS',name:'CR Mega Draft Masters',mode:'Mega Draft',prize:'12 000 XC',players:'18/32',date:'20 Jan 2025',btnClass:'tc-join-open',btnText:"S'inscrire →"},
+  {game:'fn',banner:'tc-banner-fn',emoji:'⚡',status:'ended',statusClass:'tc-ended',statusText:'TERMINÉ',name:'XENOVRA Fortnite Cup #7',mode:'Zone Wars 1v1',prize:'20 000 XC',players:'128/128',date:'8 Jan 2025',btnClass:'tc-join-ended',btnText:'Voir résultats'},
+  {game:'cr',banner:'tc-banner-cr',emoji:'👑',status:'soon',statusClass:'tc-soon',statusText:'BIENTÔT',name:'CR 2v2 Touchdown Cup',mode:'2v2 Touchdown',prize:'30 000 XC',players:'0/16',date:'28 Jan 2025',btnClass:'tc-join-soon',btnText:'Rappel →'},
+];
+const liveMatchesPreview=[
+  {icon:'⚡',iconClass:'fn-icon',game:'Fortnite · Boxfight 1v1',bet:500,p1:'XenoPro',p2:'GhostFN'},
+  {icon:'👑',iconClass:'cr-icon-bg',game:'Clash Royale · Draft',bet:1200,p1:'CRMaster',p2:'RoyalX'},
+  {icon:'⚡',iconClass:'fn-icon',game:'Fortnite · Zone Wars 2v2',bet:800,p1:'TeamA',p2:'TeamB'},
+];
+
+// ─── RENDER FUNCTIONS ───
+function renderLiveMatchesPreview(){
+  document.getElementById('liveMatchesList').innerHTML=liveMatchesPreview.map(m=>`
+    <div class="match-item">
+      <div class="match-game-icon ${m.iconClass}">${m.icon}</div>
+      <div class="match-info">
+        <div class="match-name">${m.p1} vs ${m.p2}</div>
+        <div class="match-meta">${m.game}</div>
+      </div>
+      <div class="match-bet">
+        <div class="match-bet-amount">⚡${m.bet}</div>
+        <div class="match-bet-label">XCoins</div>
+        <div class="match-status-live"><span style="width:5px;height:5px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 1.5s infinite"></span> LIVE</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+let currentGame='fn';
+function switchGame(g,btn){
+  currentGame=g;
+  document.querySelectorAll('.gtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMatches(g);
+}
+
+// FIX : accolade fermante manquante sur renderMatches corrigée
+function renderMatches(g){
+  const modes=g==='fn'?fnModes:crModes;
+  document.getElementById('modesGrid').innerHTML=modes.map(m=>`
+    <div class="mode-card ${g}-mode" onclick="notify('Mode ${m.name} sélectionné !')">
+      <span class="mode-icon">${m.icon}</span>
+      <div class="mode-name">${m.name}</div>
+      <div class="mode-players">${m.players}</div>
+    </div>
+  `).join('');
+  const filtered=openMatchesData.filter(m=>g==='fn'?m.game==='fn':m.game==='cr');
+  document.getElementById('openMatches').innerHTML=filtered.map(m=>`
+    <div class="open-match-card">
+      <div class="omc-top">
+        <div class="omc-game">
+          <div class="omc-game-icon ${m.game==='fn'?'fn-icon':'cr-icon-bg'}">${m.icon}</div>
+          <div>
+            <div class="omc-game-name">${m.gameName}</div>
+            <div class="omc-game-mode">${m.mode}</div>
+          </div>
+        </div>
+        <div class="omc-status ${m.status==='live'?'status-live':'status-open'}">${m.status==='live'?'🔴 LIVE':'🟢 OUVERT'}</div>
+      </div>
+      <div class="omc-players">
+        <div class="player-avatar" style="background:linear-gradient(135deg,${m.p1.color}44,${m.p1.color}22);color:${m.p1.color}">${m.p1.name[0]}</div>
+        <span style="font-size:.82rem;color:#fff;font-weight:600">${m.p1.name}</span>
+        ${m.p2
+          ? `<span class="vs-label">VS</span><div class="player-avatar" style="background:linear-gradient(135deg,${m.p2.color}44,${m.p2.color}22);color:${m.p2.color}">${m.p2.name[0]}</div><span style="font-size:.82rem;color:#fff;font-weight:600">${m.p2.name}</span>`
+          : '<span class="vs-label">VS</span><div class="player-avatar" style="background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.2);color:var(--muted2)">?</div><span style="font-size:.78rem;color:var(--muted2)">En attente...</span>'
+        }
+      </div>
+      <div class="omc-bet"><span>Mise</span><span class="omc-bet-amount">⚡ ${m.bet.toLocaleString('fr-FR')} XC</span></div>
+      <button class="join-btn" onclick="joinMatch(${m.id})">${m.status==='live'?'👁️ Spectateur':'⚔️ Rejoindre'}</button>
+    </div>
+  `).join('');
+}
+
+function joinMatch(id){notify(`Match #${id} rejoint ! Bon courage ⚔️`,'⚔️')}
+function showCreateMatch(){notify('Création de match bientôt disponible !','🔨')}
+
+// FIX : accolade fermante manquante sur renderLb corrigée
+function renderLb(period){
+  const data=lbData[period];
+  const ranks=['gold','silver','bronze'];
+  const icons=['🥇','🥈','🥉'];
+  document.getElementById('lbRows').innerHTML=data.map((p,i)=>`
+    <div class="lb-row ${i<3?'top'+(i+1):''}">
+      <div class="lb-rank ${i<3?ranks[i]:'normal'}">${i<3?icons[i]:i+1}</div>
+      <div class="lb-player">
+        <div class="lb-avatar" style="background:linear-gradient(135deg,${p.color}44,${p.color}22);color:${p.color};border:1px solid ${p.color}33">${p.name[0]}</div>
+        <div><div class="lb-pname">${p.name}</div><div class="lb-ptag">${p.tag}</div></div>
+      </div>
+      <div class="lb-coins">⚡ ${p.coins.toLocaleString('fr-FR')}</div>
+      <div class="lb-wins">${p.wins}W</div>
+      <div class="lb-ratio">${p.ratio}%</div>
+    </div>
+  `).join('');
+}
+
+function switchLb(p,btn){
+  document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderLb(p);
+}
+
+let currentShopFilter='all';
+function filterShop(f,btn){
+  currentShopFilter=f;
+  document.querySelectorAll('.shop-cat').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderShop(f);
+}
+
+// FIX : accolade fermante manquante sur renderShop corrigée
+function renderShop(f){
+  const items=f==='all'?shopItems:shopItems.filter(i=>i.cat===f);
+  document.getElementById('shopGrid').innerHTML=items.map(i=>`
+    <div class="shop-item">
+      <div class="shop-item-img ${i.rarityClass}">
+        <span class="shop-rarity ${i.rarityLabel}">${i.rarityText}</span>
+        <span style="position:relative;z-index:1">${i.icon}</span>
+      </div>
+      <div class="shop-item-body">
+        <div class="shop-item-name">${i.name}</div>
+        <div class="shop-item-desc">${i.desc}</div>
+        <div class="shop-item-footer">
+          <div class="shop-price">⚡ ${i.price.toLocaleString('fr-FR')} XC</div>
+          <button class="shop-buy-btn" onclick="buyItem('${i.name}',${i.price})">Acheter</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function buyItem(name,price){
+  const coins=parseInt(document.getElementById('navCoins').textContent.replace(/\s/g,'').replace(/\u00a0/g,''));
+  if(coins>=price){
+    document.getElementById('navCoins').textContent=(coins-price).toLocaleString('fr-FR');
+    notify(`"${name}" acheté ! ✨`,'🛍️');
+  } else {
+    notify(`XCoins insuffisants ! Il te manque ${(price-coins).toLocaleString('fr-FR')} XC`,'❌');
+  }
+}
+
+function renderTourneys(){
+  document.getElementById('tourneyGrid').innerHTML=tourneyData.map(t=>`
+    <div class="tourney-card">
+      <div class="tc-banner ${t.banner}">
+        <div class="tc-banner-emoji">${t.emoji}</div>
+        <span class="tc-status-badge ${t.statusClass}">${t.statusText}</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-game">${t.game==='fn'?'⚡ Fortnite':'👑 Clash Royale'} · ${t.mode}</div>
+        <div class="tc-name">${t.name}</div>
+        <div class="tc-info">
+          <div class="tc-info-item"><div class="tc-info-label">Prize Pool</div><div class="tc-info-val tc-prize">⚡ ${t.prize}</div></div>
+          <div class="tc-info-item"><div class="tc-info-label">Joueurs</div><div class="tc-info-val">${t.players}</div></div>
+          <div class="tc-info-item"><div class="tc-info-label">Date</div><div class="tc-info-val">${t.date}</div></div>
+          <div class="tc-info-item"><div class="tc-info-label">Format</div><div class="tc-info-val">Bracket</div></div>
+        </div>
+        <button class="tc-join-btn ${t.btnClass}" onclick="joinTourney('${t.name}')">${t.btnText}</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function joinTourney(name){notify(`Inscription à "${name}" confirmée 🏆`,'🏆')}
+
+// ─── INIT ───
+renderLiveMatchesPreview();
+</script>
+</body>
 </html>
